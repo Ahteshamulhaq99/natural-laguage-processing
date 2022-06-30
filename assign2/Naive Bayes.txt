@@ -1,0 +1,26 @@
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.naive_bayes import MultinomialNB
+X_train, X_test, y_train, y_test = train_test_split(df2['Descrption'], df2['Type'], random_state = 0)
+count_vect = CountVectorizer()
+X_train_counts = count_vect.fit_transform(X_train)
+tfidf_transformer = TfidfTransformer()
+X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
+clf = MultinomialNB().fit(X_train_tfidf, y_train)
+
+
+TEST:
+print(clf.predict(count_vect.transform(["Darja Hararat 44 Degree Tak Janay Ka Imkaan"])))
+print(clf.predict(count_vect.transform(["Aj afridi nai 50 run score kiye"])))
+print(clf.predict(count_vect.transform(["Karachi mai zor dar dhamaka"])))
+print(clf.predict(count_vect.transform(["Karachi mai aj Taiz Hawaon chalin"])))
+print(clf.predict(count_vect.transform(["Karachi mai traffic hadsa 3 log mar gaye"])))
+
+Results:
+
+['Weather']
+['Sports']
+['Violence']
+['Weather']
+['Accident']
